@@ -48,6 +48,7 @@
 #define RMD_ATTR_UCC_COUPEN_EXTENDED_CODE               85
 #define RMD_ATTR_FRMWR_VERSION                       20012
 #define RMD_ATTR_MFD                                   535
+#define RMD_ATTR_REBOOT_AND_UNPAIR                     6045
 
 #define RMD_ATTR_SYM_US_Postnet                         89
 #define RMD_ATTR_SYM_US_Planet                          90
@@ -72,6 +73,8 @@
 #define RMD_ATTR_QR_CODE                               293
 #define RMD_ATTR_MICRO_QR                              573
 #define RMD_ATTR_AZTEC                                 574
+#define RMD_ATTR_SYM_DOT_CODE                          1906
+
 #define RMD_ATTR_HANXIN                               1167
 #define RMD_ATTR_COMPOSITE_CC_C                        341
 #define RMD_ATTR_COMPOSITE_CC_A_B                      342
@@ -121,5 +124,10 @@
 #define RMD_ATTR_VALUE_ACTION_LED_RED_OFF               48
 #define RMD_ATTR_VALUE_ACTION_FAST_BLINK                85
 #define RMD_ATTR_VALUE_ACTION_FAST_BLINK_OFF            90
+#define RMD_ATTR_VALUE_ACTION_REBOOT_AND_UNPAIR         1
+#define RMD_ATTR_VALUE_ACTION_VIRTUAL_TETHER_SIMULATION_ENABLE  232
+#define RMD_ATTR_VALUE_ACTION_VIRTUAL_TETHER_SIMULATION_DISABLE 233
+#define RMD_ATTR_VALUE_AUTO_RECONNECT 604
+#define RMD_ATTR_VALUE_PARAMETER_BARCODE 236
 
 #endif /* __RMD_ATTRIBUTES_H__ */

@@ -26,7 +26,9 @@ typedef enum {
     SBT_RESULT_INVALID_PARAMS            = 0x04,
     SBT_RESULT_RESPONSE_TIMEOUT          = 0x05,
     SBT_RESULT_OPCODE_NOT_SUPPORTED      = 0x06,
-    SBT_RESULT_SCANNER_NO_SUPPORT        = 0x07
+    SBT_RESULT_SCANNER_NO_SUPPORT        = 0x07,
+    SBT_RESULT_BTADDRESS_NOT_SET         = 0x08,
+    SBT_RESULT_SCANNER_NOT_CONNECT_STC   = 0x09
 } SBT_RESULT;
 
 /* operating modes of SDK */
@@ -54,19 +56,13 @@ enum {
     SBT_EVENT_SESSION_TERMINATION        = (0x01 << 6),
     SBT_EVENT_RAW_DATA                   = (0x01 << 7)
 };
-
-/* supported device models */
+/* supported device manufacturers */
 enum {
-    SBT_DEVMODEL_INVALID                 = 0x00,
-    SBT_DEVMODEL_SSI_RFD8500             = 0x01,
-    SBT_DEVMODEL_SSI_CS4070              = 0x02,
-    SBT_DEVMODEL_SSI_LI3678              = 0x03,
-    SBT_DEVMODEL_SSI_DS3678              = 0x04,
-    SBT_DEVMODEL_SSI_DS8178              = 0x05,
-    SBT_DEVMODEL_SSI_DS2278              = 0x06,
-    SBT_DEVMODEL_SSI_GENERIC             = 0x07,
-    SBT_DEVMODEL_RFID_RFD8500            = 0x08
+    SBT_DEVMANUFACTURER_INVALID         = 0x00,
+    SBT_DEVMANUFACTURER_ZEBRA           = 0x01,
+    SBT_DEVMANUFACTURER_CSR             = 0x02,
 };
+
 
 /* supported LED codes */
 enum {
@@ -119,6 +115,7 @@ enum
 	SBT_DEVICE_RELEASE_TRIGGER                  = 0x7DC,	//2012
 	SBT_DEVICE_SCAN_DISABLE                     = 0x7DD,	//2013
 	SBT_DEVICE_SCAN_ENABLE                      = 0x7DE,	//2014
+    SBT_DEVICE_BATCH_REQUEST                    = 0x7DF,    //2015
     SBT_DEVICE_CAPTURE_IMAGE                    = 0xBB8,	//3000
     SBT_DEVICE_CAPTURE_BARCODE                  = 0xDAC,	//3500
 	SBT_DEVICE_CAPTURE_VIDEO                    = 0xFA0,	//4000
@@ -167,6 +164,61 @@ enum
 	SBT_ERROR_OPCODE                            = -1,
     
     
+};
+
+/* Symbol Flash Commands */
+enum {
+    PING              = 0x01,
+    SESSION_START     = 0x02,
+    SESSION_END       = 0x03,
+    DL_START          = 0x04,
+    DL_BLOCK          = 0x05,
+    DL_END            = 0x06,
+    CHANGE_BAUD       = 0x07,
+    ENTER_FAT         = 0x08,
+    SESSION_INFO      = 0x09,
+    JUMP_ADDRESS      = 0x0A,
+    SET_GUID          = 0x0B,
+    READ_SC           = 0x0C
+    
+};
+
+enum
+{
+   // Data-Layer status values
+   D_OK                  = 0x00,  // Command proc'd OK                      No    All
+   // Status in this section are warnings ==========================================================
+   D_SC_UNKNOWN          = 0x01,  // SC not known by this SC - forwar it    No    DL-START
+   D_SC_REL_RESIDENT     = 0x02,  // The code being dl' is already resident No    DL-START
+   D_BAUD_UNSUPPORTED    = 0x03,  // Specified baud not supported(1)        No    CHANGE-BAUD
+   D_SC_NOT_ALLOWED      = 0x05,  // SC not recommended for download        No    DL-START
+   D_WARNING_MAX         = 0x0F,  // Add warnings above here                Not Applicable
+   // Link-Layer status values    ==================================================================
+   LL_OK                 = 0x00,  // Packet rcv'd OK                        No    All
+   // All status below are fatal errors ============================================================
+   D_FAIL_MIN            = 0x10,  // Add failures below here                Not Applicable
+   LL_TIMEOUT_ERR        = 0x11,  // Rcv timeout error                      Yes   All
+   LL_STX_ERR            = 0x12,  // STX not found                          Yes   All
+   LL_LEN_ERR            = 0x13,  // Packet "len" to long                   Yes   All
+   LL_CHECKSUM_ERR       = 0x14,  // Packet checksum failed                 Yes   All
+   LL_INTERNAL_ERR       = 0x15,  // Implementation error                   Yes   All
+   // Application layer status values ==============================================================
+   D_BLK_SIZE_ERR        = 0x20,  // Recv'd block > Block-Size              Yes   DL-Blk
+   D_ADDR_ERR            = 0x21,  // Out-Of-Range Addr                      Yes   DL-BLK
+   D_CMD_SEQ_ERR         = 0x22,  // Cmd rcvd out-of-sequence               Yes   All
+   D_DOWNLOAD_ERR        = 0x23,  // Final download check                   Yes   SESS-End
+   D_SC_UNSUPPORTED_ERR  = 0x24,  // SC is known but not supported          Yes   DL-START
+   D_SC_CRC_ERR          = 0x25,  // SC crc failure                         Yes   DL-END
+   D_WRITE_ADDR_ERR      = 0x26,  // Attempt to write to an Odd Flash Addr  Yes   SESS-END, DL-BLK
+   D_INTERNAL_ERR        = 0x27,  // Implementation Error                   Yes   All
+   D_OP_ILLEGAL_ERR      = 0x28,  // Illegal command (host side only)       Yes   N/A (Host Only)
+   D_CMD_FORMAT_ERR      = 0x29,  // Invalid formatted command              Yes   N/A (Host Only)
+   // Add failures aboves here
+   D_FLASH_ERASE_ERR     = 0x40,  // 40-5F:Erase flash failed               Yes   SESS-END, DL-BLK
+   D_FLASH_WRITE_ERR     = 0x60,  // 60-7F:Write to flash failed            Yes   SESS-END, DL-BLK
+   // Values 0x40-0x7F are reserved for Flash specific failures
+   // DAT-Server Only erros ========================================================================
+   S_DEVICE_NOT_FLASHABLE= 0x80
 };
 
 typedef enum {

@@ -23,8 +23,9 @@
     BOOL m_AutoCommunicationSessionReestablishment;
     BOOL m_Active; /* communication session is established */
     BOOL m_Available;
+    BOOL m_IsStcConnected;
     NSString *m_ScannerName;
-    int m_ScannerModel;
+    NSString *m_ScannerModel;
 }
 
 - (id)init;
@@ -36,15 +37,17 @@
 - (void)setActive:(BOOL)active;
 - (void)setAvailable:(BOOL)available;
 - (void)setScannerName:(NSString*)scannerName;
-- (void)setScannerModel:(int)scannerModel;
+- (void)setScannerModel:(NSString*)scannerModel;
+- (void)setStcConnected:(BOOL)connected;
 
 - (int)getScannerID;
 - (int)getConnectionType;
 - (BOOL)getAutoCommunicationSessionReestablishment;
 - (BOOL)isActive;
 - (BOOL)isAvailable;
+- (BOOL)isStcConnected;
 - (NSString*)getScannerName;
-- (int)getScannerModel;
+- (NSString*)getScannerModel;
 
 @property(nonatomic, retain) NSString *firmwareVersion;
 @property(nonatomic, retain) NSString *mFD;

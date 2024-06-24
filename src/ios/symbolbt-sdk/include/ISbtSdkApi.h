@@ -34,11 +34,14 @@
 - (SBT_RESULT) sbtEstablishCommunicationSession:(int)scannerID;
 - (SBT_RESULT) sbtTerminateCommunicationSession:(int)scannerID;
 - (SBT_RESULT) sbtEnableAvailableScannersDetection:(BOOL)enable;
+- (SBT_RESULT) sbtEnableBluetoothScannerDiscovery:(BOOL)enable;
 - (SBT_RESULT) sbtEnableAutomaticSessionReestablishment:(BOOL)enable forScanner:(int)scannerID;
 - (SBT_RESULT) sbtExecuteCommand:(int)opCode aInXML:(NSString*)inXML aOutXML:(NSMutableString**)outXML forScanner:(int)scannerID;
 - (SBT_RESULT) sbtLedControl:(BOOL)enable aLedCode:(int)ledCode forScanner:(int)scannerID;
 - (SBT_RESULT) sbtBeepControl:(int)beepCode forScanner:(int)scannerID;
 - (void) sbtSetBTAddress:(NSString*)btAdd;
 - (UIImage*) sbtGetPairingBarcode:(BARCODE_TYPE)barcodeType withComProtocol:(STC_COM_PROTOCOL)comProtocol withSetDefaultStatus:(SETDEFAULT_STATUS)setDefaultsStatus withBTAddress:(NSString*)btAddress withImageFrame:(CGRect)imageFrame;
+- (UIImage*) sbtGetPairingBarcode:(BARCODE_TYPE)barcodeType withComProtocol:(STC_COM_PROTOCOL)comProtocol withSetDefaultStatus:(SETDEFAULT_STATUS)setDefaultsStatus withImageFrame:(CGRect)imageFrame;
+- (SBT_RESULT) sbtAutoConnectToLastConnectedScannerOnAppRelaunch:(BOOL)enable;
 
 @end
