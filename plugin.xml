@@ -36,8 +36,6 @@
         <header-file src="src/ios/symbolbt-sdk/include/SbtSdkFactory.h" />
         <source-file src="src/ios/ZebraScanner.m" />
         <source-file src="src/ios/symbolbt-sdk/libsymbolbt-sdk.a" framework="true" />
-        <source-file src="src/ios/symbolbt-sdk/libintegratedsdk.a" framework="true" />
-        <source-file src="src/ios/symbolbt-sdk/libsymbolrfid-sdk.a" framework="true" />
 
         <framework src="CoreBluetooth.framework" />
         <framework src="ExternalAccessory.framework" />
